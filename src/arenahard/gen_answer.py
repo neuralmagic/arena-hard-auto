@@ -11,6 +11,8 @@ import tqdm
 
 import sys
 print(sys.path)
+sys.path.append('/root/.clearml/venvs-builds/3.10/lib/python3.10/site-packages/arenahard')
+
 
 from arenahard.utils.add_markdown_info import count_markdown_elements, remove_pattern
 from arenahard.utils.completion import (
