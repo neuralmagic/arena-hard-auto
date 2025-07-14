@@ -9,6 +9,9 @@ import tiktoken
 import shortuuid
 import tqdm
 
+import sys
+print(sys.path)
+
 from arenahard.utils.add_markdown_info import count_markdown_elements, remove_pattern
 from arenahard.utils.completion import (
     load_questions,
