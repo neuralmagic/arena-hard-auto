@@ -116,33 +116,16 @@ def judgment(args):
         f.write(json.dumps(output, ensure_ascii=False) + "\n")
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--setting-file", type=str, default=os.path.join("config", "arena-hard-v2.0.yaml")
-    )
-    parser.add_argument(
-        "--endpoint-file", type=str, default=os.path.join("config", "api_config.yaml")
-    )
-    parser.add_argument(
-        "--config-path", type=str, default=os.path.join(".", "src", "arenahard" )
-    )
-    parser.add_argument(
-        "--question-path", type=str, default=os.path.join(".", "src", "arenahard", "data")
-    )
-    parser.add_argument(
-        "--answer-path", type=str, default=os.path.join(".", "src", "arenahard", "data")
-    )
-    args = parser.parse_args()
-    print(args)
 
-    configs = make_config(os.path.join(args.config_path, args.setting_file))
-    endpoint_list = make_config(os.path.join(args.config_path, args.endpoint_file))
+def run (setting_file, endpoint_file, config_path, question_path, answer_path):
+
+    configs = make_config(os.path.join(config_path, setting_file))
+    endpoint_list = make_config(os.path.join(config_path, endpoint_file))
 
     print(f'judge model: {configs["judge_model"]}, reference: {configs["reference"]}, temperature: {configs["temperature"]}, max tokens: {configs["max_tokens"]}')
 
-    question_file = os.path.join(args.question_path, configs["bench_name"], "question.jsonl")
-    answer_dir = os.path.join(args.answer_path, configs["bench_name"], "model_answer")
+    question_file = os.path.join(question_path, configs["bench_name"], "question.jsonl")
+    answer_dir = os.path.join(answer_path, configs["bench_name"], "model_answer")
 
     questions = load_questions(question_file)
     model_answers = load_model_answers(answer_dir)
@@ -157,7 +140,7 @@ if __name__ == "__main__":
         ref_answers = None
     
     output_files = {}
-    output_dir = f"{args.config_path}/{configs['bench_name']}/model_judgment/{configs['judge_model']}"
+    output_dir = f"{answer_path}/{configs['bench_name']}/model_judgment/{configs['judge_model']}"
     for model in models:
         output_files[model] = os.path.join(
             output_dir,
@@ -212,3 +195,26 @@ if __name__ == "__main__":
             concurrent.futures.as_completed(futures), total=len(futures)
         ):
             future.result()
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--setting-file", type=str, default=os.path.join("config", "arena-hard-v2.0.yaml")
+    )
+    parser.add_argument(
+        "--endpoint-file", type=str, default=os.path.join("config", "api_config.yaml")
+    )
+    parser.add_argument(
+        "--config-path", type=str, default=os.path.join(".", "src", "arenahard" )
+    )
+    parser.add_argument(
+        "--question-path", type=str, default=os.path.join(".", "src", "arenahard", "data")
+    )
+    parser.add_argument(
+        "--answer-path", type=str, default=os.path.join(".", "src", "arenahard", "data")
+    )
+    args = parser.parse_args()
+    print(args)
+    run( setting_file = args.setting_file, endpoint_file = args.endpoint_file, config_path = args.config_path, question_path = args.question_path, answer_path = args.answer_path)
+
