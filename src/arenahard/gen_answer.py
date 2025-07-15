@@ -23,7 +23,7 @@ from arenahard.utils.completion import (
 
 
 def get_answer(
-    question: dict, answer_file: str, settings: dict
+    question: dict, answer_file: str, settings: dict, model: str
 ):
     # build messages
     messages = []
@@ -123,6 +123,7 @@ def run (config_file, endpoint_file, config_path, question_path, answer_path):
                         question,
                         answer_file,
                         endpoint_settings,
+                        model,
                     )
                     futures.append(future)
                 if count > 0:
