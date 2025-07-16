@@ -132,6 +132,7 @@ def run (setting_file, endpoint_file, config_path, question_path, answer_path):
     
     # if user choose a set of models, only judge those models
     models = [model for model in configs["model_list"]]
+    print(f"The models to judge are: {models}")
         
     if configs["reference"]:
         assert not configs["reference"] in models, "ERROR: one of the models being evaluated is used as reference."
