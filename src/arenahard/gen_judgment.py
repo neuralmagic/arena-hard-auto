@@ -126,6 +126,10 @@ def run (setting_file, endpoint_file, config_path, question_path, answer_path):
 
     question_file = os.path.join(question_path, configs["bench_name"], "question.jsonl")
     answer_dir = os.path.join(answer_path, configs["bench_name"], "model_answer")
+    
+    print(f"Question file: {question_file}")
+    print(f"Answer dir: {answer_dir}")
+    
 
     questions = load_questions(question_file)
     model_answers = load_model_answers(answer_dir)
