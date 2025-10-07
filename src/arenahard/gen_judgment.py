@@ -67,6 +67,8 @@ def pairwise_judgment(question, baseline, answer, reference, configs, settings):
     if output is None:
         return None
 
+    print(output['answer'])
+    print(configs["regex_patterns"])
     score = get_score(output['answer'], configs["regex_patterns"])
 
     result = {
