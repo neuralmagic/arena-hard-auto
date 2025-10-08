@@ -118,7 +118,7 @@ def print_leaderboard(battles, category):
     _leaderboard = format_confidence_interval(mean_scores, lower_scores, upper_scores, baseline)
     
     print(f"##### Category: {category} #####")
-    #print(_leaderboard.to_string())
+    print(_leaderboard.to_string())
         
 
 def print_leaderboard_with_style_features(battles, benchmark, category,control_features):        
@@ -218,7 +218,7 @@ def print_leaderboard_with_style_features(battles, benchmark, category,control_f
     )
 
     print(f"##### Category: {category} #####")
-    #print(_leaderboard.to_string())
+    print(_leaderboard.to_string())
     print(f"Feature Coefs: {torch.quantile(coefs[:, -num_features:], 0.5, axis=0)}")
 
 
@@ -236,7 +236,8 @@ if __name__ == "__main__":
         assert category in battles.category.unique(), f"Invalid category: {category}"
         
         battles = battles[battles.category == category].reset_index(drop=True)
-        
+
+        """
         if args.control_features:
             print(f"INFO: Control features: {args.control_features}")
             
@@ -249,4 +250,5 @@ if __name__ == "__main__":
                 
         else:
             print_leaderboard(battles, category)
+        """
         
