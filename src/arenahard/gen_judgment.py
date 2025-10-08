@@ -177,7 +177,7 @@ def run (setting_file, endpoint_file, config_path, question_path, answer_path):
                 if model in existing_judgments and uid in existing_judgments[model]:
                     count += 1
                     continue
-                print(f"The model answers: {model_answers}")
+                #print(f"The model answers: {model_answers}")
 
                 kwargs["answer"] = model_answers[model][uid]
                 kwargs["baseline"] = model_answers[
