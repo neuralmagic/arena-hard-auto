@@ -5,8 +5,8 @@ import torch
 from glob import glob
 from tqdm import tqdm
 
-from utils.judge_utils import JUDGE_SETTINGS
-from utils.math_utils import one_hot_encode, to_winrate_probabilities, bootstrap_pairwise_model
+from arenahard.utils.judge_utils import JUDGE_SETTINGS
+from arenahard.utils.math_utils import one_hot_encode, to_winrate_probabilities, bootstrap_pairwise_model
 
 
 def load_judgments(judge_names, benchmark, weight=3):
@@ -118,7 +118,9 @@ def print_leaderboard(battles, category):
     _leaderboard = format_confidence_interval(mean_scores, lower_scores, upper_scores, baseline)
     
     print(f"##### Category: {category} #####")
-    #print(_leaderboard.to_string())
+    print(_leaderboard.to_string())
+
+    return _leaderboard
         
 
 def print_leaderboard_with_style_features(battles, benchmark, category,control_features):        
@@ -218,8 +220,10 @@ def print_leaderboard_with_style_features(battles, benchmark, category,control_f
     )
 
     print(f"##### Category: {category} #####")
-    #print(_leaderboard.to_string())
+    print(_leaderboard.to_string())
     print(f"Feature Coefs: {torch.quantile(coefs[:, -num_features:], 0.5, axis=0)}")
+
+    return _leaderboard
 
 
 if __name__ == "__main__":
@@ -237,7 +241,7 @@ if __name__ == "__main__":
         
         battles = battles[battles.category == category].reset_index(drop=True)
 
-        """
+
         if args.control_features:
             print(f"INFO: Control features: {args.control_features}")
             
@@ -250,5 +254,3 @@ if __name__ == "__main__":
                 
         else:
             print_leaderboard(battles, category)
-        """
-        
