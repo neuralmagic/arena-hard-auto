@@ -9,12 +9,14 @@ from arenahard.utils.judge_utils import JUDGE_SETTINGS
 from arenahard.utils.math_utils import one_hot_encode, to_winrate_probabilities, bootstrap_pairwise_model
 
 
-def load_judgments(judge_names, benchmark, weight=3):
+def load_judgments(judge_names, benchmark, weight=3, parent_dir=""):
+    print(os.getcwd())
     dfs = []
     for judge_name in judge_names:
         print(f"Loading {judge_name} judgments...")
         dfs.extend([
             pd.read_json(f, lines=True) for f in tqdm(glob(os.path.join(
+                parent_dir,
                 "data",
                 benchmark, 
                 "model_judgment", 
