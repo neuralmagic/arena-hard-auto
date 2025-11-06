@@ -60,6 +60,7 @@ def pairwise_judgment(question, baseline, answer, reference, configs, settings):
     }
     kwargs['temperature'] = configs['temperature']
     kwargs['max_tokens'] = configs['max_tokens']
+    kwargs['reasoning_effort'] = configs['reasoning_effort']
     
     api_completion_func = registered_api_completion[settings["api_type"]]
     output = api_completion_func(**kwargs)
@@ -124,7 +125,7 @@ def run (setting_file, endpoint_file, config_path, question_path, answer_path):
     configs = make_config(os.path.join(config_path, setting_file))
     endpoint_list = make_config(os.path.join(config_path, endpoint_file))
 
-    print(f'judge model: {configs["judge_model"]}, reference: {configs["reference"]}, temperature: {configs["temperature"]}, max tokens: {configs["max_tokens"]}')
+    print(f'judge model: {configs["judge_model"]}, reference: {configs["reference"]}, temperature: {configs["temperature"]}, max tokens: {configs["max_tokens"]}, reasoning effort: {configs["reasoning_effort"]},')
 
     question_file = os.path.join(question_path, configs["bench_name"], "question.jsonl")
     answer_dir = os.path.join(answer_path, configs["bench_name"], "model_answer")
