@@ -12,6 +12,7 @@ setup(
     packages=find_packages(
         "src", include=["arenahard", "arenahard.*"], exclude=["*.__pycache__.*"]
     ),
+    include_package_data=True,
     install_requires=[
         "tiktoken",
         "openai",
