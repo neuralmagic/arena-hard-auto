@@ -1,1 +1,1 @@
-include src/arenahard/data/*/*/*.jsonl 
+include src/arenahard/data/*/*/*/*.jsonl 
