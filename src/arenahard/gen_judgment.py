@@ -93,26 +93,40 @@ def judgment(args):
         "games": []
     }
 
-    # round 1
-    result = pairwise_judgment(
-        question=args['question'],
-        baseline=baseline,
-        answer=answer,
-        reference=args['reference'],
-        configs=args['configs'],
-        settings=args['settings'],
-    )
+    for i in range(3):
+        # round 1
+        result = pairwise_judgment(
+            question=args['question'],
+            baseline=baseline,
+            answer=answer,
+            reference=args['reference'],
+            configs=args['configs'],
+            settings=args['settings'],
+        )
+        if result["score"] != None:
+            break
+        elif result["score"] == None:
+            uid = output["uid"]
+            print(f"Rerun experiment for {uid}")
+
     output["games"].append(result)
         
-    # round 2
-    result = pairwise_judgment(
-        question=args['question'],
-        baseline=answer,
-        answer=baseline,
-        reference=args['reference'],
-        configs=args['configs'],
-        settings=args['settings'],
-    )
+    for i in range(3):
+        # round 2
+        result = pairwise_judgment(
+            question=args['question'],
+            baseline=answer,
+            answer=baseline,
+            reference=args['reference'],
+            configs=args['configs'],
+            settings=args['settings'],
+        )
+        if result["score"] != None:
+            break
+        elif result["score"] == None:
+            uid = output["uid"]
+            print(f"Rerun experiment for {uid}")
+
     output["games"].append(result)
 
     with open(args['output_file'], "a", encoding="utf-8") as f:
