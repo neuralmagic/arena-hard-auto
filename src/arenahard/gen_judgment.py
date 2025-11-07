@@ -108,7 +108,7 @@ def judgment(args):
         "B<A"
     ]
 
-    num_of_retries = 10
+    num_of_retries = 5
     for idx in range(num_of_retries):
         # round 1
         result = pairwise_judgment(
