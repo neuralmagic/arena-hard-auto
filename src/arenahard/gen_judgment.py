@@ -93,7 +93,10 @@ def judgment(args):
         "games": []
     }
 
-    for i in range(3):
+    temperature_list = [0.2,0.5,0.8]
+
+    for temperature in temperature_list:
+        args['configs']['temperature'] = temperature
         # round 1
         result = pairwise_judgment(
             question=args['question'],
@@ -107,11 +110,13 @@ def judgment(args):
             break
         elif result["score"] == None:
             uid = output["uid"]
-            print(f"Rerun experiment for {uid}")
+            print(f"Rerun experiment for {uid}, temperature: {temperature}")
 
     output["games"].append(result)
         
-    for i in range(3):
+    #for i in range(3):
+    for temperature in temperature_list:
+        args['configs']['temperature'] = temperature
         # round 2
         result = pairwise_judgment(
             question=args['question'],
@@ -125,7 +130,7 @@ def judgment(args):
             break
         elif result["score"] == None:
             uid = output["uid"]
-            print(f"Rerun experiment for {uid}")
+            print(f"Rerun experiment for {uid}, temperature: {temperature}")
 
     output["games"].append(result)
 
