@@ -96,7 +96,8 @@ def judgment(args):
     temperature_list = [0.2,0.5,0.8]
 
     for temperature in temperature_list:
-        args['configs']['temperature'] = temperature
+        #args['configs']['temperature'] = temperature
+        print(args['configs']['temperature'] )
         # round 1
         result = pairwise_judgment(
             question=args['question'],
@@ -116,7 +117,8 @@ def judgment(args):
         
     #for i in range(3):
     for temperature in temperature_list:
-        args['configs']['temperature'] = temperature
+        #args['configs']['temperature'] = temperature
+        print(args['configs']['temperature'] )
         # round 2
         result = pairwise_judgment(
             question=args['question'],
