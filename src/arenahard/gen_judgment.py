@@ -97,18 +97,18 @@ def judgment(args):
     }
 
     # map label to score
-    label_to_score = {
-        "A>B": [1],
-        "A>>B": [1] * weight,
-        "A=B": [0.5],
-        "A<<B": [0] * weight,
-        "A<B": [0],
-        "B>A": [0],
-        "B>>A": [0] * weight,
-        "B=A": [0.5],
-        "B<<A": [1] * weight,
-        "B<A": [1],
-    }
+    label_to_score = [
+        "A>B",
+        "A>>B",
+        "A=B",
+        "A<<B",
+        "A<B",
+        "B>A",
+        "B>>A",
+        "B=A",
+        "B<<A",
+        "B<A"
+    ]
 
     for idx in range(7):
         # round 1
@@ -120,7 +120,8 @@ def judgment(args):
             configs=args['configs'],
             settings=args['settings'],
         )
-        if result["score"] != None and result["score"] in list(label_to_score.keys()):
+        #if result["score"] != None and result["score"] in label_to_score.keys()):
+        if result["score"] in label_to_score:
             break
         elif result["score"] == None:
             uid = output["uid"]
@@ -138,7 +139,7 @@ def judgment(args):
             configs=args['configs'],
             settings=args['settings'],
         )
-        if result["score"] != None and result["score"] in list(label_to_score.keys()):
+        if result["score"] in label_to_score:
             break
         elif result["score"] == None:
             uid = output["uid"]
