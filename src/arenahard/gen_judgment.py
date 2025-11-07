@@ -58,8 +58,8 @@ def pairwise_judgment(question, baseline, answer, reference, configs, settings):
         "api_dict": get_endpoint(settings["endpoints"]),
         "messages": messages,
     }
-    kwargs['temperature'] = 0.1
-    #kwargs['temperature'] = configs['temperature']
+    #kwargs['temperature'] = 0.1
+    kwargs['temperature'] = configs['temperature']
     kwargs['max_tokens'] = configs['max_tokens']
     kwargs['reasoning_effort'] = configs['reasoning_effort']
     
@@ -108,7 +108,8 @@ def judgment(args):
         "B<A"
     ]
 
-    for idx in range(10):
+    num_of_retries = 10
+    for idx in range(num_of_retries):
         # round 1
         result = pairwise_judgment(
             question=args['question'],
@@ -127,7 +128,7 @@ def judgment(args):
 
     output["games"].append(result)
         
-    for idx in range(3):
+    for idx in range(num_of_retries):
         # round 2
         result = pairwise_judgment(
             question=args['question'],
