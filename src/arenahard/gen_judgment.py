@@ -93,7 +93,7 @@ def judgment(args):
         "games": []
     }
 
-    temperature_list = [0.2,0.5,0.8]
+    temperature_list = [0.2,0.3,0.6,0.8,0.9]
 
     for temperature in temperature_list:
         #args['configs']['temperature'] = temperature
