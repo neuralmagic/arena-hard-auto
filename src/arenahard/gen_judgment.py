@@ -58,10 +58,8 @@ def pairwise_judgment(question, baseline, answer, reference, configs, settings):
         "api_dict": get_endpoint(settings["endpoints"]),
         "messages": messages,
     }
-    temperature_list = [0.0,0.3,0.6,0.8,0.9]
-    import random
-    kwargs['temperature'] = configs['temperature']
-    #kwargs['temperature'] = random.choice(temperature_list)
+    kwargs['temperature'] = 0.1
+    #kwargs['temperature'] = configs['temperature']
     kwargs['max_tokens'] = configs['max_tokens']
     kwargs['reasoning_effort'] = configs['reasoning_effort']
     
@@ -110,7 +108,7 @@ def judgment(args):
         "B<A"
     ]
 
-    for idx in range(7):
+    for idx in range(10):
         # round 1
         result = pairwise_judgment(
             question=args['question'],
