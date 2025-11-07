@@ -58,7 +58,10 @@ def pairwise_judgment(question, baseline, answer, reference, configs, settings):
         "api_dict": get_endpoint(settings["endpoints"]),
         "messages": messages,
     }
-    kwargs['temperature'] = configs['temperature']
+    temperature_list = [0.0,0.3,0.6,0.8,0.9]
+    import random
+    #kwargs['temperature'] = configs['temperature']
+    kwargs['temperature'] = random.choice(temperature_list)
     kwargs['max_tokens'] = configs['max_tokens']
     kwargs['reasoning_effort'] = configs['reasoning_effort']
     
@@ -93,11 +96,7 @@ def judgment(args):
         "games": []
     }
 
-    temperature_list = [0.2,0.3,0.6,0.8,0.9]
-
-    for temperature in temperature_list:
-        #args['configs']['temperature'] = temperature
-        print(args['configs']['temperature'] )
+    for idx in range(3):
         # round 1
         result = pairwise_judgment(
             question=args['question'],
@@ -111,14 +110,11 @@ def judgment(args):
             break
         elif result["score"] == None:
             uid = output["uid"]
-            print(f"Rerun experiment for {uid}, temperature: {temperature}")
+            print(f"Rerun experiment for {uid}")
 
     output["games"].append(result)
         
-    #for i in range(3):
-    for temperature in temperature_list:
-        #args['configs']['temperature'] = temperature
-        print(args['configs']['temperature'] )
+    for idx in range(3):
         # round 2
         result = pairwise_judgment(
             question=args['question'],
@@ -132,7 +128,7 @@ def judgment(args):
             break
         elif result["score"] == None:
             uid = output["uid"]
-            print(f"Rerun experiment for {uid}, temperature: {temperature}")
+            print(f"Rerun experiment for {uid}")
 
     output["games"].append(result)
 
