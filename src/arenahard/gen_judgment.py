@@ -60,8 +60,8 @@ def pairwise_judgment(question, baseline, answer, reference, configs, settings):
     }
     temperature_list = [0.0,0.3,0.6,0.8,0.9]
     import random
-    #kwargs['temperature'] = configs['temperature']
-    kwargs['temperature'] = random.choice(temperature_list)
+    kwargs['temperature'] = configs['temperature']
+    #kwargs['temperature'] = random.choice(temperature_list)
     kwargs['max_tokens'] = configs['max_tokens']
     kwargs['reasoning_effort'] = configs['reasoning_effort']
     
@@ -96,7 +96,7 @@ def judgment(args):
         "games": []
     }
 
-    for idx in range(3):
+    for idx in range(7):
         # round 1
         result = pairwise_judgment(
             question=args['question'],
