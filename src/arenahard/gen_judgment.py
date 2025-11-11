@@ -108,7 +108,10 @@ def judgment(args):
         "B<A"
     ]
 
+    firstcount = 0
+    secondcount = 0
     num_of_retries = 10
+
     for idx in range(num_of_retries):
         # round 1
         result = pairwise_judgment(
@@ -119,12 +122,15 @@ def judgment(args):
             configs=args['configs'],
             settings=args['settings'],
         )
-        #if result["score"] != None and result["score"] in label_to_score.keys()):
-        if result["score"] in label_to_score:
+        if result.get("score", "")  in label_to_score:
             break
-        elif result["score"] == None:
+        elif result.get("score", None) == None:
+            firstcount+=1 
             uid = output["uid"]
             print(f"Rerun experiment for {uid}")
+
+    if firstcount > 0 :
+        print(f"Round 1 repeated: {firstcount} times")
 
     output["games"].append(result)
         
@@ -138,11 +144,15 @@ def judgment(args):
             configs=args['configs'],
             settings=args['settings'],
         )
-        if result["score"] in label_to_score:
+        if result.get("score", "")  in label_to_score:
             break
-        elif result["score"] == None:
+        elif result.get("score", None) == None:
+            secondcount+=1 
             uid = output["uid"]
             print(f"Rerun experiment for {uid}")
+
+    if secondcount > 0 :
+        print(f"Round 2 repeated: {secondcount} times")
 
     output["games"].append(result)
 
