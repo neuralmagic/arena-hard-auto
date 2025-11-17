@@ -122,12 +122,19 @@ def judgment(args):
             configs=args['configs'],
             settings=args['settings'],
         )
-        if result.get("score", "")  in label_to_score:
-            break
-        elif result.get("score", None) == None:
-            firstcount+=1 
+
+        if type(result) is type(None):
+            firstcount+=1
             uid = output["uid"]
             print(f"Rerun experiment for {uid}")
+        elif result.get("score", None) == None:
+            firstcount+=1
+            uid = output["uid"]
+            print(f"Rerun experiment for {uid}")
+        elif result.get("score", "")  in label_to_score:
+            break
+        else:
+            print(f"Reached the retries limit of {num_of_retries} for {uid}")
 
     if firstcount > 0 :
         print(f"Round 1 repeated: {firstcount} times")
@@ -144,12 +151,19 @@ def judgment(args):
             configs=args['configs'],
             settings=args['settings'],
         )
-        if result.get("score", "")  in label_to_score:
-            break
-        elif result.get("score", None) == None:
-            secondcount+=1 
+
+        if type(result) is type(None):
+            secondcount+=1
             uid = output["uid"]
             print(f"Rerun experiment for {uid}")
+        elif result.get("score", None) == None:
+            secondcount+=1
+            uid = output["uid"]
+            print(f"Rerun experiment for {uid}")
+        elif result.get("score", "")  in label_to_score:
+            break
+        else:
+            print(f"Reached the retries limit of {num_of_retries} for {uid}")
 
     if secondcount > 0 :
         print(f"Round 2 repeated: {secondcount} times")
