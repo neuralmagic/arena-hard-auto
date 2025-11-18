@@ -5,6 +5,7 @@ import yaml
 import random
 import shortuuid
 import pandas as pd
+import httpx
 
 import requests
 from typing import Optional
@@ -124,7 +125,8 @@ def chat_completion_openai(model, messages, temperature, max_tokens, api_dict=No
         client = openai.OpenAI(
             base_url=api_dict["api_base"],
             api_key=api_dict["api_key"],
-            timeout = 10800.0,
+            #timeout = 10800.0,
+            timeout=httpx.Timeout(600.0, read=50.0, write=100.0, connect=200.0),
         )
     else:
         client = openai.OpenAI()
