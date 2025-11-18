@@ -127,10 +127,12 @@ def judgment(args):
             firstcount+=1
             uid = output["uid"]
             print(f"Rerun experiment for {uid}")
+            continue
         elif result.get("score", None) == None:
             firstcount+=1
             uid = output["uid"]
             print(f"Rerun experiment for {uid}")
+            continue
         elif result.get("score", "")  in label_to_score:
             break
         else:
@@ -156,10 +158,12 @@ def judgment(args):
             secondcount+=1
             uid = output["uid"]
             print(f"Rerun experiment for {uid}")
+            continue
         elif result.get("score", None) == None:
             secondcount+=1
             uid = output["uid"]
             print(f"Rerun experiment for {uid}")
+            continue
         elif result.get("score", "")  in label_to_score:
             break
         else:
