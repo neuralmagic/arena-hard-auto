@@ -111,6 +111,7 @@ def judgment(args):
     firstcount = 0
     secondcount = 0
     num_of_retries = 10
+    uid = output["uid"]
 
     for idx in range(num_of_retries):
         # round 1
@@ -125,12 +126,10 @@ def judgment(args):
 
         if type(result) is type(None):
             firstcount+=1
-            uid = output["uid"]
             print(f"Rerun experiment for {uid}")
             continue
         elif result.get("score", None) == None:
             firstcount+=1
-            uid = output["uid"]
             print(f"Rerun experiment for {uid}")
             continue
         elif result.get("score", "")  in label_to_score:
@@ -156,12 +155,10 @@ def judgment(args):
 
         if type(result) is type(None):
             secondcount+=1
-            uid = output["uid"]
             print(f"Rerun experiment for {uid}")
             continue
         elif result.get("score", None) == None:
             secondcount+=1
-            uid = output["uid"]
             print(f"Rerun experiment for {uid}")
             continue
         elif result.get("score", "")  in label_to_score:
